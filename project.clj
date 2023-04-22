@@ -6,7 +6,10 @@
   :dependencies [[org.clojure/clojure "1.11.1"]
                  [ring "1.10.0"]
                  [metosin/reitit "0.6.0"]
-                 [metosin/muuntaja "0.6.8"]]
+                 [metosin/muuntaja "0.6.8"]
+                 [com.github.seancorfield/next.jdbc "1.3.874"]
+                 [org.postgresql/postgresql "42.3.3"]
+                 [crypto-password "0.3.0"]]
   :main jotes.core
   :aot [jotes.core]
   :target-path "target/%s"

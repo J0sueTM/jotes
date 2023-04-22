@@ -14,7 +14,7 @@
 
 (def routes [["/" (fn [_] {:status 200 :body "pong!"})]])
 
-(def router-data
+(def router-spec
   {:data {:muuntaja mtj/instance
           :middleware [rtt-params/parameters-middleware
                        rtt-mtj/format-negotiate-middleware
@@ -24,7 +24,7 @@
                        rtt-coercion/coerce-response-middleware]}})
 
 (def router
-  (-> (rtt-ring/router routes router-data)
+  (-> (rtt-ring/router routes router-spec)
       (rtt-ring/ring-handler (rtt-ring/create-default-handler))))
 
 (defn start []
