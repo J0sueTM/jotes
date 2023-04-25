@@ -1,13 +1,7 @@
 (ns jotes.db
-  (:require [next.jdbc :as jdbc])
+  (:require [next.jdbc :as jdbc]
+            [clojure.string :as str])
   (:gen-class))
-
-;; (when (= (System/getenv "JOTES_ENV") "dev")
-;;   (let [logger (logging.Logger/getLogger "org.postgresql")
-;;         console-handler (logging.ConsoleHandler.)]
-;;     (.setLevel logger logging.Logger/FINE)
-;;     (.setFormatter console-handler (logging.SimpleFormatter.))
-;;     (.addHandler logger console-handler)))
 
 (def ^:private pg-db-name
   (-> (System/getenv "JOTES_DB_NAME")
@@ -24,3 +18,16 @@
 (def pg-src (jdbc/get-datasource pg-spec))
 
 (def rs-opts (jdbc/with-options pg-src jdbc/unqualified-snake-kebab-opts))
+
+(defmacro with-connection
+  [[conn-var] & body]
+  (let [sym (gensym)]
+    `(let [~sym (jdbc/get-connection pg-src)]
+       (with-open [conn# ~sym]
+         (def ~conn-var ~sym)
+         (try
+           ~@body
+           (catch org.postgresql.util.PSQLException e#
+             {:error (.getMessage e#)})
+           (finally
+             (.close conn#)))))))

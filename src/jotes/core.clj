@@ -5,5 +5,4 @@
 
 (defn -main
   [& _]
-  (jotes.db/start)
   (jotes.server/start))

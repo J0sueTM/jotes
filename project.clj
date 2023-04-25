@@ -9,7 +9,8 @@
                  [metosin/muuntaja "0.6.8"]
                  [com.github.seancorfield/next.jdbc "1.3.874"]
                  [org.postgresql/postgresql "42.3.3"]
-                 [crypto-password "0.3.0"]]
+                 [crypto-password "0.3.0"]
+                 [buddy/buddy-auth "3.0.1"]]
   :main jotes.core
   :aot [jotes.core]
   :target-path "target/%s"
