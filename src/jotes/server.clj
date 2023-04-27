@@ -6,10 +6,7 @@
             [reitit.ring.middleware.muuntaja :as rtt-mtj]
             [reitit.ring.middleware.parameters :as rtt-params]
             [muuntaja.core :as mtj]
-            [jotes.api.auth]
-            [buddy.auth.backends :as buddy-backends]
-            [buddy.auth.middleware :as buddy-mddwr])
-  (:gen-class))
+            [jotes.api.category]))
 
 (def port
   (-> (System/getenv "JOTES_PORT")
@@ -17,8 +14,11 @@
       (Integer/parseInt)))
 
 (def routes
-  [["/auth/signin" {:post jotes.api.auth/signin-spec}]
-   ["/auth/signup" {:post jotes.api.auth/signup-spec}]])
+  [["/categories/:txt" {:get    jotes.api.category/get-by-txt-spec
+                        :put    jotes.api.category/update!-spec
+                        :delete jotes.api.category/delete-spec}]
+   ["/categories" {:get  jotes.api.category/get-all-spec
+                   :post jotes.api.category/create-spec}]])
 
 (def router-spec
   {:data {:muuntaja mtj/instance
@@ -29,12 +29,9 @@
                        rtt-coercion/coerce-request-middleware
                        rtt-coercion/coerce-response-middleware]}})
 
-(def jwt-backend (buddy-backends/jws {:secret jotes.api.auth/jwt-secret}))
-
 (def router
   (-> (rtt-ring/router routes router-spec)
-      (rtt-ring/ring-handler (rtt-ring/create-default-handler))
-      (buddy-mddwr/wrap-authentication jwt-backend)))
+      (rtt-ring/ring-handler (rtt-ring/create-default-handler))))
 
 (defn start []
   (ring-jetty/run-jetty #'router {:port port :join? false}))

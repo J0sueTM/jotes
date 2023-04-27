@@ -1,7 +1,6 @@
 (ns jotes.db.note
   (:require [next.jdbc.sql :as jdbc-sql]
-            [jotes.db])
-  (:gen-class))
+            [jotes.db]))
 
 (defn insert
   [{:keys [user category txt]}]

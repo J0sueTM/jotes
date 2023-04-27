@@ -1,6 +1,5 @@
 (ns jotes.core
-  (:require [jotes.server]
-            [jotes.db])
+  (:require [jotes.server])
   (:gen-class))
 
 (defn -main

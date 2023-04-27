@@ -1,7 +1,5 @@
 (ns jotes.db
-  (:require [next.jdbc :as jdbc]
-            [clojure.string :as str])
-  (:gen-class))
+  (:require [next.jdbc :as jdbc]))
 
 (def ^:private pg-db-name
   (-> (System/getenv "JOTES_DB_NAME")
@@ -9,11 +7,12 @@
 
 (def ^:private pg-password (System/getenv "JOTES_DB_PASSWORD"))
 
-(def pg-spec {:dbtype "postgresql"
-           :port 5432
-           :user "admin"
-           :dbname pg-db-name
-           :password pg-password})
+(def pg-spec
+  {:dbtype "postgresql"
+   :port 5432
+   :user "admin"
+   :dbname pg-db-name
+   :password pg-password})
 
 (def pg-src (jdbc/get-datasource pg-spec))
 
