@@ -5,7 +5,7 @@ for Clojure learning. You can use it to create your frontend app, who knows 😀
 
 ## Building
 
-You can build it by yourself, using `lein uberjack`, but you would need to set
+You can build it by yourself, using `lein uberjar`, but you would need to set
 the database, environment variables, which are already setted for you in the
 Docker images:
 
