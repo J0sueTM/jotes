@@ -1,0 +1,25 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:latest
+    container_name: jotes-db
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: postdba
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+      - ./src/sql/init-up.sql:/docker-entrypoint-initdb.d/init-up.sql
+    restart: always
+    ports:
+      - "5432:5432"
+  api:
+    build: ./
+    container_name: jotes-api
+    environment:
+      JOTES_DB_PASSWORD: postdba
+      JOTES_ENV: prod
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db

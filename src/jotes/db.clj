@@ -7,9 +7,16 @@
 
 (def ^:private pg-password (System/getenv "JOTES_DB_PASSWORD"))
 
+(def pg-host
+  (let [env (System/getenv "JOTES_ENV")]
+    (if (= env "dev")
+      "localhost"
+      "jotes-db")))
+
 (def pg-spec
   {:dbtype "postgresql"
    :port 5432
+   :host pg-host
    :user "admin"
    :dbname pg-db-name
    :password pg-password})

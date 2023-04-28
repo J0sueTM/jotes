@@ -1,36 +1,23 @@
-# jotes
+# JOTES 
 
-FIXME: description
+A RESTful backend bootstrap for a to-be notetaking app. A short project
+for Clojure learning. You can use it to create your frontend app, who knows 😀.
 
-## Installation
+## Building
 
-Download from http://example.com/FIXME.
+You can build it by yourself, using `lein uberjack`, but you would need to set
+the database, environment variables, which are already setted for you in the
+Docker images:
 
-## Usage
+```shell
+docker compose up
+```
 
-FIXME: explanation
-
-    $ java -jar jotes-0.1.0-standalone.jar [args]
-
-## Options
-
-FIXME: listing of options this app accepts.
-
-## Examples
-
-...
-
-### Bugs
-
-...
-
-### Any Other Sections
-### That You Think
-### Might be Useful
+There you go!
 
 ## License
 
-Copyright © 2023 FIXME
+Copyright © 2023 Josue Teodoro Moreira <j0suetm.com>
 
 This program and the accompanying materials are made available under the
 terms of the Eclipse Public License 2.0 which is available at

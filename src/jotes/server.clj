@@ -7,7 +7,8 @@
             [reitit.ring.middleware.parameters :as rtt-params]
             [muuntaja.core :as mtj]
             [jotes.api.category]
-            [jotes.api.note]))
+            [jotes.api.note]
+            [jotes.db]))
 
 (def port
   (-> (System/getenv "JOTES_PORT")

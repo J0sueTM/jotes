@@ -1,11 +1,15 @@
-CREATE TABLE category
+CREATE DATABASE jotesdb;
+
+\c jotesdb;
+
+CREATE TABLE IF NOT EXISTS category
 (
   id    SERIAL  PRIMARY KEY,
   txt   VARCHAR NOT NULL,
   color VARCHAR NOT NULL
 );
 
-CREATE TABLE note
+CREATE TABLE IF NOT EXISTS note
 (
   id          SERIAL  PRIMARY KEY,
   category_id INTEGER NOT NULL,
