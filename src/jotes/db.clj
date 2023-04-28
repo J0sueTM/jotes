@@ -21,7 +21,7 @@
 (defmacro with-connection
   [[conn-var] & body]
   (let [sym (gensym)]
-    `(let [~sym (jdbc/get-connection pg-src)]
+    `(let [~sym (jdbc/get-connection rs-opts)]
        (with-open [conn# ~sym]
          (def ~conn-var ~sym)
          (try

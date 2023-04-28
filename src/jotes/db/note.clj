@@ -3,7 +3,22 @@
             [jotes.db]))
 
 (defn insert
-  [{:keys [user category txt]}]
-  (jdbc-sql/insert! jotes.db/rs-opts :note {:user-id (:id user)
-                                            :category-id (:id category)
-                                            :txt txt}))
+  [txt category-id]
+  (jotes.db/with-connection [conn]
+    (jdbc-sql/insert! conn :note {:category_id category-id
+                                  :txt txt})))
+
+(defn get-all
+  []
+  (jotes.db/with-connection [conn]
+    (jdbc-sql/query conn ["SELECT * FROM note;"])))
+
+(defn update!
+  [id new-data]
+  (jotes.db/with-connection [conn]
+    (jdbc-sql/update! conn :note new-data {:id id})))
+
+(defn delete
+  [id]
+  (jotes.db/with-connection [conn]
+    (jdbc-sql/delete! conn :note {:id id})))

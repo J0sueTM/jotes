@@ -5,13 +5,18 @@
 (defn insert
   [txt, color]
   (jotes.db/with-connection [conn]
-    (jdbc-sql/insert! conn :category {:txt   txt
+    (jdbc-sql/insert! conn :category {:txt txt
                                       :color color})))
 
 (defn get-all
   []
   (jotes.db/with-connection [conn]
     (jdbc-sql/query conn ["SELECT * FROM category;"])))
+
+(defn get-by-id
+  [id]
+  (jotes.db/with-connection [conn]
+    (jdbc-sql/query conn ["SELECT * FROM category WHERE id = ?;" id])))
 
 (defn get-by-txt
   [txt]

@@ -6,7 +6,8 @@
             [reitit.ring.middleware.muuntaja :as rtt-mtj]
             [reitit.ring.middleware.parameters :as rtt-params]
             [muuntaja.core :as mtj]
-            [jotes.api.category]))
+            [jotes.api.category]
+            [jotes.api.note]))
 
 (def port
   (-> (System/getenv "JOTES_PORT")
@@ -14,11 +15,15 @@
       (Integer/parseInt)))
 
 (def routes
-  [["/categories/:txt" {:get    jotes.api.category/get-by-txt-spec
-                        :put    jotes.api.category/update!-spec
+  [["/categories/:txt" {:get jotes.api.category/get-by-txt-spec
+                        :put jotes.api.category/update!-spec
                         :delete jotes.api.category/delete-spec}]
-   ["/categories" {:get  jotes.api.category/get-all-spec
-                   :post jotes.api.category/create-spec}]])
+   ["/categories" {:get jotes.api.category/get-all-spec
+                   :post jotes.api.category/create-spec}]
+   ["/notes/:id" {:put jotes.api.note/update!-spec
+                  :delete jotes.api.note/delete-spec}]
+   ["/notes" {:get jotes.api.note/get-all-spec
+              :post jotes.api.note/create-spec}]])
 
 (def router-spec
   {:data {:muuntaja mtj/instance
